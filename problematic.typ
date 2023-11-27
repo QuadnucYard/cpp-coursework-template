@@ -23,10 +23,10 @@
 	)
 }
 
-#let sample(input, output, num: none) = {
+#let sample(input, output, num: none, ratio: 50%) = {
 	let postfix = if num != none { " #" + str(num) } else { "" };
 	table(
-		columns: (50%, 50%),
+		columns: (ratio, 100% - ratio),
 		stroke: none,
 		{ strong("Sample input" + postfix) },
 		{ strong("Sample output" + postfix) },
