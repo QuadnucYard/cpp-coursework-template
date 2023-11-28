@@ -1,4 +1,4 @@
-#import "@preview/codelst:1.0.0": sourcecode
+#import "cody.typ": *
 
 #let project(title: "", body) = {
   // Set the document's basic properties.
@@ -6,14 +6,14 @@
   set page(numbering: "1", number-align: center)
 
   set text(font: ("Linux Libertine", "Times New Roman", "SimSun", "SimHei"), lang: "en")
-	show raw: set text(font: ("DejaVu Sans Mono", "Sarasa Mono SC"))
-  // set heading(numbering: "1.1")
+	
+  import "cody.typ": raw-style
+  show: raw-style
    
   // Title row.
   block(width: 100%, stroke: 1pt + purple.lighten(20%), fill: purple.lighten(90%), radius: 4pt, outset: 8pt)[
     #align(center, text(weight: 700, 1.75em, font: ("Linux Libertine", "SimHei"), fill: purple.darken(20%), title))
   ]
-  
    
   // Main body.
   set par(justify: false)
@@ -26,20 +26,6 @@
 
 	set table(stroke: 0.5pt)
 
-	show raw: it => {
-		if not it.has("block") {
-			it
-		} else if it.block {
-			if it.lang != none {
-				sourcecode(it)
-			} else {
-				block(width: 100%, radius: 2pt, fill: rgb("#f8f8f8"), stroke: 0.5pt + rgb("#ddd"), inset: 0.5em, it)
-			}
-		} else {
-			box(inset: (left: 0.2em, right: 0.2em), box(radius: 2pt, fill: rgb(50%, 50%, 50%, 10%), outset: 0.2em, it))
-		}	
-	}
-   
   body
 
   place(bottom + right, text(size: 8pt, "Powered by Typst.", fill: gray))
@@ -111,26 +97,4 @@
   set enum(numbering: "1.a.i.")
   
   doc
-}
-
-
-#let codify(body) = {
-  set raw(lang: "cpp")
-  body
-  set raw(lang: none)
-}
-
-#let codeblock(text, start: none, end: none, count: none) = {
-  let a = text.split("\n")
-  if end != none {
-    a = a.slice(0, end)
-  }
-  if start != none {
-    a = a.slice(start - 1)
-  }
-  if count != none {
-    a = a.slice(0, count)
-  }
-  text = a.join("\n")
-	raw(text, block: true, lang: "cpp")
 }
