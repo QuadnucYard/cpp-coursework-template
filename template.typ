@@ -5,26 +5,30 @@
   set document(author: (), title: title)
   set page(numbering: "1", number-align: center)
 
-  set text(font: ("Linux Libertine", "Times New Roman", "SimSun", "SimHei"), lang: "en")
-	
-  import "cody.typ": raw-style
-  show: raw-style
-   
-  // Title row.
-  block(width: 100%, stroke: 1pt + purple.lighten(20%), fill: purple.lighten(90%), radius: 4pt, outset: 8pt)[
-    #align(center, text(weight: 700, 1.75em, font: ("Linux Libertine", "SimHei"), fill: purple.darken(20%), title))
-  ]
-   
-  // Main body.
-  set par(justify: false)
-   
+  set text(font: ("Linux Libertine", "SimSun", "SimHei"), lang: "en")
+
+  set block(spacing: 0.7em)
+
   set math.equation(numbering: "(1)")
 
   show link: set text(fill: blue)
 
+  show heading: set text(font: ("Linux Libertine", "SimHei"))
+
   show emph: text.with(font: ("Linux Libertine", "STKaiti"), fill: red)
 
-	set table(stroke: 0.5pt)
+  // Title row.
+  block(width: 100%, stroke: 1pt + purple.lighten(20%), fill: purple.lighten(90%), radius: 4pt, outset: 8pt)[
+    #align(center, text(weight: 700, 1.75em, font: ("Linux Libertine", "SimHei"), fill: purple.darken(20%), title))
+  ]
+
+  // Main body.
+  set par(justify: false)
+
+  set table(stroke: 0.5pt)
+
+  import "cody.typ": raw-style
+  show: raw-style
 
   body
 
@@ -32,28 +36,17 @@
 }
 
 #let assignment-style(doc) = {
-  show heading: it => block(width: 100%)[
-    #text(it.body, weight: "bold", font: ("Linux Libertine", "SimHei"))
-  ]
-
-  show heading.where(level: 1): it => block(width: 100%)[
-    #text(fill: blue, it.body, weight: "bold", font: "SimHei")
-  ]
-
-  show heading.where(level: 2): it => block(width: 100%)[
-    #text(it.body, size: 13pt, fill: orange, font: ("Linux Libertine", "SimHei"))
-  ]
+  show heading.where(level: 1): set text(fill: blue)
+  show heading.where(level: 2): set text(size: 13pt, fill: orange)
 
   set enum(numbering: "1.a)")
-  
+
   doc
 }
 
 #let solution-style(doc) = {
-
   let h1-box(body) = {
-    block(width: 100%, fill: blue.lighten(90%), stroke: (left: 3pt + blue.lighten(30%)), inset: 4pt, outset: 4pt, radius: (left: 4pt), body)
-    v(4pt)
+    block(width: 100%, fill: blue.lighten(90%), stroke: (left: 3pt + blue.lighten(30%)), inset: 4pt, outset: 4pt, radius: (left: 4pt), below: 12pt, body)
   }
   
   let h2-box(inset: 6pt, outset: 10pt, bar-space: 2pt, bar-width: 3pt, body) = {
@@ -63,8 +56,7 @@
     let isr = if type(inset) == dictionary { inset.right }  else { inset }
     style(styles => {
       let size = measure(body, styles)
-      v(-8pt)
-      block()[
+      block(above: 8pt, below: 8pt)[
         #stack(dir: ltr, spacing: bar-space,
           polygon(
             fill: eastern.lighten(80%),
@@ -83,15 +75,16 @@
         )
         #place(left + top, dy: inset, dx: inset, body)
       ]
-      v(-2pt)
     })
   }
   
-  show heading.where(level: 1): it => h1-box(text(fill: blue, it.body))
+  show heading.where(level: 1): it => {
+    set text(fill: blue)
+    h1-box(it)
+  }
   show heading.where(level: 2): it => {
-    // block(width: 100%, stroke: (top: 1.5pt + gradient.linear(eastern, white, white), bottom: 1.5pt + gradient.linear(eastern, white), left: 1.5pt + eastern), inset: 4pt, outset: 2pt, text(fill: eastern, it.body))
-    // text(fill: eastern, it.body)
-    h2-box(text(fill: eastern, it.body))
+    set text(fill: eastern)
+    h2-box(it)
   }
 
   set enum(numbering: "1.a.i.")
