@@ -15,7 +15,7 @@
 
   show heading: set text(font: ("Linux Libertine", "SimHei"))
 
-  show emph: text.with(font: ("Linux Libertine", "STKaiti"), fill: red)
+  show emph: text.with(font: ("Linux Libertine", "STKaiti"), fill: red.darken(10%))
 
   // Title row.
   block(width: 100%, stroke: 1pt + purple.lighten(20%), fill: purple.lighten(90%), radius: 4pt, outset: 8pt)[
