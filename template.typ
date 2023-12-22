@@ -17,6 +17,9 @@
 
   show emph: text.with(font: ("Linux Libertine", "STKaiti"), fill: red.darken(10%))
 
+  show math.lt.eq: math.lt.eq.slant
+  show math.gt.eq: math.gt.eq.slant
+
   // Title row.
   block(width: 100%, stroke: 1pt + purple.lighten(20%), fill: purple.lighten(90%), radius: 4pt, outset: 8pt)[
     #align(center, text(weight: 700, 1.75em, font: ("Linux Libertine", "SimHei"), fill: purple.darken(20%), title))

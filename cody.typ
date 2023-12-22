@@ -13,6 +13,7 @@
     if it.lang == none {
       block(width: 100%, radius: 2pt, fill: rgb("#f8f8f8"), stroke: 0.5pt + rgb("#ddd"), inset: 0.5em, it)
     } else {
+      set raw(lang: none)
       sourcecode(it)
     }
   }
