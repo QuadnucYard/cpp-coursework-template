@@ -1,12 +1,11 @@
 // cody.typ
+#import "@preview/codelst:1.0.0": sourcecode
 
 /// Add boxes to raw contents.
 ///
 /// - doc (any): The document.
 /// -> content
 #let raw-style(doc) = {
-  import "@preview/codelst:1.0.0": sourcecode
-
   show raw: set text(font: ("DejaVu Sans Mono", "Sarasa Mono SC"))
 
   show raw.where(block: true): it => {
@@ -50,7 +49,11 @@
     a = a.slice(0, count)
   }
   text = a.join("\n")
-	raw(text, block: true, lang: lang)
+  raw(text, block: true, lang: lang)
+  /* sourcecode(
+    raw(text, block: true, lang: lang),
+    numbers-start: if start != none { start } else { 1 }
+  ) */
 }
 
 #{

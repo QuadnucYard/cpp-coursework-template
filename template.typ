@@ -14,6 +14,7 @@
   show link: set text(fill: blue)
 
   show heading: set text(font: ("Linux Libertine", "SimHei"))
+  show heading.where(level: 3): set block(above: 1em)
 
   show emph: text.with(font: ("Linux Libertine", "STKaiti"), fill: red.darken(10%))
 
