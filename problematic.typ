@@ -112,6 +112,17 @@
   )
 }
 
+#let choices(columns: 2, ..children) = {
+  table(
+    columns: range(columns).map(t => 100% / columns),
+    stroke: none,
+    ..for i in range(children.pos().len()) {
+      ([#{str.from-unicode(65 + i) + ". "}#children.pos().at(i)],)
+    }
+  )
+}
+
+#let choice-placer = underline("        ")
 
 #{
   import "cody.typ": raw-style
