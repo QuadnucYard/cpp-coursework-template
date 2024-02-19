@@ -1,12 +1,14 @@
 // cody.typ
-#import "@preview/codelst:1.0.0": sourcecode
+#import "@preview/codelst:1.0.0": sourcecode, codelst
+
+// codelst can be safely upgraded to 2.0.0, but it will cause slow preview
 
 /// Add boxes to raw contents.
 ///
 /// - doc (any): The document.
 /// -> content
 #let raw-style(doc) = {
-  show raw: set text(font: ("DejaVu Sans Mono", "Sarasa Mono SC"))
+  show raw.line: set text(font: ("DejaVu Sans Mono", "Sarasa Mono SC"))
 
   show raw.where(block: true): it => {
     if it.lang == none {
@@ -32,17 +34,26 @@
 
 /// Make a code block from text slice.
 ///
-/// - start (integer none): The start line (from 1). If none, slice from the first line.
-/// - end (integer none): The end line (from 1). If none, slice to the last line.
+/// - start (integer string none): The start line (from 1). If none, slice from the first line.
+/// - end (integer string none): The end line (from 1). If none, slice to the last line.
 /// - count (integer none): Number of lines from start. If none, all lines will be kept.
 /// - lang (string): The language to use.
 /// -> content
 #let codeblock(text, start: none, end: none, count: none, lang: "cpp") = {
   let a = text.split("\n")
   if end != none {
+    if type(end) == str {
+      end = a.position(x => x.contains(end))
+      assert(end != none)
+    }
     a = a.slice(0, end)
   }
   if start != none {
+    if type(start) == str {
+      start = a.position(x => x.contains(start))
+      assert(start != none)
+      start += 2
+    }
     a = a.slice(start - 1)
   }
   if count != none {
@@ -54,10 +65,4 @@
     raw(text, block: true, lang: lang),
     numbers-start: if start != none { start } else { 1 }
   ) */
-}
-
-#{
-  import "@preview/tidy:0.1.0"
-  let my-module = tidy.parse-module(read("cody.typ"), name: "cody")
-  tidy.show-module(my-module)
 }

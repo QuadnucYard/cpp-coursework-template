@@ -4,12 +4,9 @@
 ///
 /// *Examples:*
 ///
-/// - ```typst #ensure-raw("114514", block: true)``` \
-///   #ensure-raw("114514", block: true)
-/// - ```typst #ensure-raw("114514", block: false)``` \
-///   #ensure-raw("114514", block: false)
-/// - ```typst #ensure-raw(`114514`, block: true)``` \
-///   #ensure-raw(`114514`, block: true)
+/// #example(`problematic.ensure-raw("114514", block: true)`)
+/// #example(`problematic.ensure-raw("114514", block: false)`)
+/// #example(``` problematic.ensure-raw(`114514`, block: true)```)
 ///
 /// - body (string, raw): Some text
 /// - block (boolean): Whether to force `block = true`.  
@@ -32,10 +29,8 @@
 ///
 /// *Examples:*
 ///
-/// - ```typst #extract-raw(`something`)``` \
-///   #extract-raw(`something`)
-/// - ```typst #extract-raw("anything")``` \
-///   #extract-raw("anything")
+/// #example(``` problematic.extract-raw(`something`)```)
+/// #example(``` problematic.extract-raw("anything")```)
 ///
 /// - s (content, string): Something like content.
 /// -> string
@@ -51,31 +46,31 @@
 ///
 /// *Example:*
 ///
-/// #test-cases(`1 2 3`, `A`, `4 5`, `B`)
+/// #example(``` problematic.test-cases(`1 2 3`, `A`, `4 5`, `B`) ```, scale-preview: 100%)
 ///
 /// - ..cases (string, raw): Input and output alternate. If is `raw`, it will be ensured block.
 /// -> content
 #let test-cases(..cases) = {
-	let a = cases.pos().map(ensure-raw)
-	let content = for i in range(int(a.len() / 2)) {
-		(box(inset: (y: 0.4em), str(i + 1)), a.at(i * 2), a.at(i * 2 + 1))
-	}
-	// [=== Test cases]
-	table(
-		columns: (30pt, 50% - 15pt, 50% - 15pt),
-		align: (center, left, left),
-		stroke: none,
-		inset: 2pt,
-		[*Case*], [*Sample input*], [*Sample output*],
-		..content
-	)
+  let a = cases.pos().map(ensure-raw)
+  let content = for i in range(int(a.len() / 2)) {
+    (box(inset: (y: 0.4em), str(i + 1)), a.at(i * 2), a.at(i * 2 + 1))
+  }
+  // [=== Test cases]
+  table(
+    columns: (30pt, 50% - 15pt, 50% - 15pt),
+    align: (center, left, left),
+    stroke: none,
+    inset: 2pt,
+    [*Case*], [*Sample input*], [*Sample output*],
+    ..content
+  )
 }
 
 /// Show a sample test case.
 ///
 /// *Example:*
 ///
-/// #sample(`114 514`, `1919810`, num: 1, ratio: 40%)
+/// #example(``` problematic.sample(`114 514`, `1919810`, num: 1, ratio: 40%)```, scale-preview: 100%)
 ///
 /// - input (any): Sample input.
 /// - output (any): Sample output.
@@ -83,15 +78,15 @@
 /// - ratio (length): The size of left (input) column.
 /// -> content
 #let sample(input, output, num: none, ratio: 50%) = {
-	let postfix = if num != none { " #" + str(num) } else { "" };
-	table(
-		columns: (ratio, 100% - ratio),
-		stroke: none,
-		{ strong("Sample input" + postfix) },
-		{ strong("Sample output" + postfix) },
-		ensure-raw(input),
-		ensure-raw(output),
-	)
+  let postfix = if num != none { " #" + str(num) } else { "" };
+  table(
+    columns: (ratio, 100% - ratio),
+    stroke: none,
+    { strong("Sample input" + postfix) },
+    { strong("Sample output" + postfix) },
+    ensure-raw(input),
+    ensure-raw(output),
+  )
 }
 
 /// Make test cases from input and solver.
@@ -112,6 +107,15 @@
   )
 }
 
+/// Display multiple choices
+///
+/// *Example:*
+///
+/// #example(``` problematic.choices(columns: 2, [Choice A], [`Choice B`]) ```, scale-preview: 100%)
+///
+/// - columns (integer): Number of columns.
+/// - ..children (content): Contents of choices
+/// -> content
 #let choices(columns: 2, ..children) = {
   table(
     columns: range(columns).map(t => 100% / columns),
@@ -128,7 +132,13 @@
   import "cody.typ": raw-style
   show: raw-style
 
-  import "@preview/tidy:0.1.0"
-  let my-module = tidy.parse-module(read("problematic.typ"), name: "problematic", scope: (ensure-raw: ensure-raw, extract-raw: extract-raw, test-cases: test-cases, sample: sample))
-  tidy.show-module(my-module)
 }
+
+/// Put an underline to hold choices
+///
+/// *Example:*
+///
+/// #example(`problematic.choice-placer`)
+///
+/// -> content
+#let choice-placer = "______"
