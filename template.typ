@@ -1,11 +1,17 @@
 #import "cody.typ": *
 
+#let fonts = (
+  primary: ("Linux Libertine", "SimSun"),
+  strong: ("Linux Libertine", "SimHei"),
+  emph: ("Linux Libertine", "STKaiti"),
+)
+
 #let project(title: "", body) = {
   // Set the document's basic properties.
   set document(author: (), title: title)
   set page(numbering: "1", number-align: center)
 
-  set text(font: ("Linux Libertine", "SimSun", "SimHei"), lang: "en")
+  set text(font: fonts.primary, lang: "en")
 
   set block(spacing: 0.7em)
 
@@ -13,17 +19,17 @@
 
   show link: set text(fill: blue)
 
-  show heading: set text(font: ("Linux Libertine", "SimHei"))
+  show heading: set text(font: fonts.strong)
   show heading.where(level: 3): set block(above: 1em)
 
-  show emph: text.with(font: ("Linux Libertine", "STKaiti"), fill: red.darken(10%))
+  show emph: text.with(font: fonts.emph, fill: red.darken(10%))
 
   show math.lt.eq: math.lt.eq.slant
   show math.gt.eq: math.gt.eq.slant
 
   // Title row.
   block(width: 100%, stroke: 1pt + purple.lighten(20%), fill: purple.lighten(90%), radius: 4pt, outset: 8pt)[
-    #align(center, text(weight: 700, 1.75em, font: ("Linux Libertine", "SimHei"), fill: purple.darken(20%), title))
+    #align(center, text(weight: 700, 1.75em, font: fonts.strong, fill: purple.darken(20%), title))
   ]
 
   // Main body.
@@ -42,6 +48,17 @@
 #let assignment-style(doc) = {
   show heading.where(level: 1): set text(fill: blue)
   show heading.where(level: 2): set text(size: 13pt, fill: orange)
+  show heading.where(level: 3): it => {
+    let a = counter(heading)
+    counter(heading).display()
+    " "
+    text(weight: "regular", font: fonts.primary, it.body)
+  }
+
+  set heading(numbering: (..nums) => {
+    let a = nums.pos()
+    if a.len() > 2 { numbering("1.a.", ..a.slice(2)) }
+  })
 
   set enum(numbering: "1.a)")
 
