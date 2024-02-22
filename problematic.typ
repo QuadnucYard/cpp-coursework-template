@@ -126,14 +126,6 @@
   )
 }
 
-#let choice-placer = underline("        ")
-
-#{
-  import "cody.typ": raw-style
-  show: raw-style
-
-}
-
 /// Put an underline to hold choices
 ///
 /// *Example:*
