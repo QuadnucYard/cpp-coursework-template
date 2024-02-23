@@ -11,7 +11,7 @@
   show raw.line: set text(font: ("DejaVu Sans Mono", "Sarasa Mono SC"))
 
   show raw.where(block: true): it => {
-    if it.lang == none {
+    if it.lang == none or it.lang == "none" {
       block(width: 100%, radius: 2pt, fill: rgb("#f8f8f8"), stroke: 0.5pt + rgb("#ddd"), inset: 0.5em, it)
     } else {
       set raw(lang: none)
@@ -37,10 +37,15 @@
 /// - start (integer string none): The start line (from 1). If none, slice from the first line.
 /// - end (integer string none): The end line (from 1). If none, slice to the last line.
 /// - count (integer none): Number of lines from start. If none, all lines will be kept.
+/// - region (string none): The prefix of start and end.
 /// - lang (string): The language to use.
 /// -> content
-#let codeblock(text, start: none, end: none, count: none, lang: "cpp") = {
+#let codeblock(text, start: none, end: none, count: none, region: none, lang: "cpp") = {
   let a = text.split("\n")
+  if region != none and lang == "cpp" {
+    start = "#pragma region " + region
+    end = "#pragma endregion " + region
+  }
   if end != none {
     if type(end) == str {
       end = a.position(x => x.contains(end))
