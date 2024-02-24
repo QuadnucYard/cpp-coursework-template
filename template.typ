@@ -1,9 +1,10 @@
 #import "cody.typ": *
 
+#let __font-serif = "Times New Roman"
 #let fonts = (
-  primary: ("Linux Libertine", "SimSun"),
-  strong: ("Linux Libertine", "SimHei"),
-  emph: ("Linux Libertine", "STKaiti"),
+  primary: (__font-serif, "SimSun"),
+  strong: (__font-serif, "SimHei"),
+  emph: (__font-serif, "STKaiti"),
 )
 
 #let project(title: "", body) = {
@@ -22,6 +23,7 @@
   show heading: set text(font: fonts.strong)
   show heading.where(level: 3): set block(above: 1em)
 
+  show strong: text.with(font: fonts.strong)
   show emph: text.with(font: fonts.emph, fill: red.darken(10%))
 
   show math.lt.eq: math.lt.eq.slant
