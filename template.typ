@@ -1,6 +1,6 @@
 #import "cody.typ": *
 
-#let __font-serif = "Times New Roman"
+#let __font-serif = "Libertinus Serif"
 #let fonts = (
   primary: (__font-serif, "SimSun"),
   strong: (__font-serif, "SimHei"),

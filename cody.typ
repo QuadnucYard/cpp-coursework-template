@@ -8,7 +8,7 @@
 /// - doc (any): The document.
 /// -> content
 #let raw-style(doc) = {
-  show raw.line: set text(font: ("DejaVu Sans Mono", "Sarasa Mono SC"))
+  show raw.line: set text(font: ("DejaVu Sans Mono", "SimHei"))
 
   show raw.where(block: true): it => {
     if it.lang == none or it.lang == "none" {
