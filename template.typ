@@ -63,7 +63,22 @@
   place(bottom + right, text(size: 8pt, "Powered by Typst.", fill: gray))
 }
 
+#let check-indent(doc, par-style) = {
+  set par(..par-style)
+  if par-style.at("first-line-indent", default: 0pt) > 0pt {
+    show heading: it => {
+      it
+      fake_par
+    }
+    doc
+  } else {
+    doc
+  }
+}
+
 #let assignment-style(doc, par-style: make-style()) = {
+  set enum(numbering: "1.a)")
+
   show heading.where(level: 1):it => {
     set text(fill: blue)
     set block(above: 1.0em)
@@ -74,34 +89,8 @@
     set block(above: 0.9em)
     it
   }
-  show heading.where(level: 3): it => {
-    let a = counter(heading)
-    counter(heading).display()
-    " "
-    text(weight: "regular", font: fonts.primary, it.body)
-  }
 
-  // 标号从3级开始
-  set heading(numbering: (..nums) => {
-    let a = nums.pos()
-    if a.len() > 2 { numbering("1.a.", ..a.slice(2)) }
-  })
-
-  set enum(numbering: "1.a)")
-
-  set par(..par-style)
-
-  if par-style.at("first-line-indent", default: 0pt) > 0pt {
-    show heading: it => {
-      it
-      fake_par
-    }
-    doc
-  } else {
-    doc
-  }
-
-  doc
+  check-indent(doc, par-style)
 }
 
 #let solution-style(doc, par-style: make-style()) = {
@@ -134,15 +123,5 @@
 
   set enum(numbering: "1.a.i.")
 
-  set par(..par-style)
-
-  if par-style.at("first-line-indent", default: 0pt) > 0pt {
-    show heading: it => {
-      it
-      fake_par
-    }
-    doc
-  } else {
-    doc
-  }
+  check-indent(doc, par-style)
 }

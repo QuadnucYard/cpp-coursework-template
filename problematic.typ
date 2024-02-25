@@ -1,4 +1,5 @@
 // problematic
+#import "template.typ": *
 
 /// Make the body raw.
 ///
@@ -108,6 +109,16 @@
       (ensure-raw(case), ensure-raw(solver(..input(case.text))))
     }
   )
+}
+
+/// Display a problem as heading
+#let problem(body, heading-level: 3) = {
+  show heading: set block(above: 0.65em, below: 0.65em)
+  heading(level: heading-level, {
+    counter("problem").step()
+    strong(counter("problem").display("1. "))
+    text(weight: "regular", font: fonts.primary, body)
+  })
 }
 
 /// Display multiple choices
