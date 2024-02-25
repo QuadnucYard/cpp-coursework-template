@@ -1,7 +1,9 @@
 // cody.typ
-#import "@preview/codelst:1.0.0": sourcecode, codelst
+#import "@preview/codelst:2.0.0": sourcecode, codelst
 
 // codelst can be safely upgraded to 2.0.0, but it will cause slow preview
+
+#let codify-state = state("codify-lang", none)
 
 /// Add boxes to raw contents.
 ///
@@ -18,7 +20,9 @@
       sourcecode(it)
     }
   }
-  show raw.where(block: false): it => box(inset: (left: 0.2em, right: 0.2em), box(radius: 2pt, fill: rgb(50%, 50%, 50%, 10%), outset: 0.2em, it))
+  show raw.where(block: false): it => {
+    box(inset: (left: 0.2em, right: 0.2em), box(radius: 2pt, fill: rgb(50%, 50%, 50%, 10%), outset: 0.2em, it))
+  }
 
   doc
 }
@@ -30,6 +34,14 @@
 #let codify(body, lang: "cpp") = {
   set raw(lang: lang)
   body
+}
+
+#let codify-enable(lang: "cpp") = {
+  codify-state.update(lang)
+}
+
+#let codify-disable() = {
+  codify-state.update(none)
 }
 
 /// Make a code block from text slice.

@@ -16,7 +16,7 @@
     border-color: red.darken(20%),
     title-color: red.lighten(10%),
     body-color: red.lighten(95%),
-    footer-color: red.lighten(80%)
+    footer-color: red.lighten(80%),
   ))
 }
 
@@ -25,7 +25,7 @@
     border-color: yellow.darken(20%),
     title-color: yellow.darken(10%),
     body-color: yellow.lighten(95%),
-    footer-color: yellow.lighten(80%)
+    footer-color: yellow.lighten(80%),
   ))
 }
 
@@ -34,7 +34,7 @@
     border-color: blue,
     title-color: blue.lighten(30%),
     body-color: blue.lighten(95%),
-    footer-color: blue.lighten(80%)
+    footer-color: blue.lighten(80%),
   ))
 }
 
@@ -43,6 +43,6 @@
     border-color: gray,
     title-color: gray.lighten(30%),
     body-color: gray.lighten(95%),
-    footer-color: gray.lighten(80%)
+    footer-color: gray.lighten(80%),
   ))
 }

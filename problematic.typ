@@ -48,9 +48,10 @@
 ///
 /// #example(``` problematic.test-cases(`1 2 3`, `A`, `4 5`, `B`) ```, scale-preview: 100%)
 ///
+/// - columns (integer): A dummy argument for prettypst to correctly align items.
 /// - ..cases (string, raw): Input and output alternate. If is `raw`, it will be ensured block.
 /// -> content
-#let test-cases(..cases) = {
+#let test-cases(columns: 2, ..cases) = {
   let a = cases.pos().map(ensure-raw)
   let content = for i in range(int(a.len() / 2)) {
     (box(inset: (y: 0.4em), str(i + 1)), a.at(i * 2), a.at(i * 2 + 1))
@@ -61,7 +62,9 @@
     align: (center, left, left),
     stroke: none,
     inset: 2pt,
-    [*Case*], [*Sample input*], [*Sample output*],
+    [*Case*],
+    [*Sample input*],
+    [*Sample output*],
     ..content
   )
 }
@@ -96,10 +99,10 @@
 /// - ..cases (string, content): Test cases.
 /// -> content
 #let make-test-cases(
-  solver: s => s, 
+  solver: s => s,
   input: s => (s, ),
-  ..cases
-  ) = {
+  ..cases,
+) = {
   test-cases(
     ..for case in cases.pos() {
       (ensure-raw(case), ensure-raw(solver(..input(case.text))))
@@ -118,10 +121,10 @@
 /// -> content
 #let choices(columns: 2, ..children) = {
   table(
-    columns: range(columns).map(t => 100% / columns),
+    columns: range(columns).map(t => 1fr),
     stroke: none,
     ..for i in range(children.pos().len()) {
-      ([#{str.from-unicode(65 + i) + ". "}#children.pos().at(i)],)
+      ([#{ str.from-unicode(65 + i) + ". " }#children.pos().at(i)], )
     }
   )
 }
