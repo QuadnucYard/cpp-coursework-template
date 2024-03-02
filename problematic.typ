@@ -131,11 +131,13 @@
 /// - ..children (content): Contents of choices
 /// -> content
 #let choices(columns: 2, ..children) = {
+  let cnt = counter("choices")
+  cnt.update(0)
   table(
     columns: range(columns).map(t => 1fr),
     stroke: none,
     ..for i in range(children.pos().len()) {
-      ([#{ str.from-unicode(65 + i) + ". " }#children.pos().at(i)], )
+      ([#cnt.step() #cnt.display("A. ") #children.pos().at(i)], )
     }
   )
 }
