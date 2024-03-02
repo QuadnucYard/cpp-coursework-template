@@ -120,6 +120,10 @@
     set text(fill: eastern, font: fonts.strong)
     h2-box(it.body)
   }
+  show heading.where(level: 3): it => {
+    set block(above: 1.0em)
+    it
+  }
 
   set enum(numbering: "1.a.i.")
 
