@@ -1,5 +1,5 @@
 // problematic
-#import "template.typ": *
+#import "font.typ": fonts
 
 /// Make the body raw.
 ///

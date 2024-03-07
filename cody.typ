@@ -1,5 +1,6 @@
 // cody.typ
 #import "@preview/codelst:2.0.0": sourcecode, codelst
+#import "font.typ": fonts
 
 // codelst can be safely upgraded to 2.0.0, but it will cause slow preview
 
@@ -10,7 +11,7 @@
 /// - doc (any): The document.
 /// -> content
 #let raw-style(doc) = {
-  show raw.line: set text(font: ("DejaVu Sans Mono", "SimHei"))
+  show raw.line: set text(font: fonts.mono)
 
   show raw.where(block: true): it => {
     if it.lang == none or it.lang == "none" {

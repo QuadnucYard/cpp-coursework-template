@@ -1,11 +1,5 @@
 #import "cody.typ": *
-
-#let __font-serif = "Linux Libertine"
-#let fonts = (
-  primary: (__font-serif, "SimSun"),
-  strong: (__font-serif, "SimHei"),
-  emph: (__font-serif, "STKaiti"),
-)
+#import "font.typ": fonts
 
 #let indent = h(2em)
 
