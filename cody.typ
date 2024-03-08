@@ -61,15 +61,17 @@
   }
   if end != none {
     if type(end) == str {
-      end = a.position(x => x.contains(end))
-      assert(end != none)
+      let _end = end
+      end = a.position(x => x.contains(_end))
+      assert(end != none, message: "Fail to find region end '" + _end + "'")
     }
     a = a.slice(0, end)
   }
   if start != none {
     if type(start) == str {
-      start = a.position(x => x.contains(start))
-      assert(start != none)
+      let _start = start
+      start = a.position(x => x.contains(_start))
+      assert(start != none, message: "Fail to find region start '" + _start + "'")
       start += 2
     }
     a = a.slice(start - 1)

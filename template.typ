@@ -75,7 +75,7 @@
 
   show heading.where(level: 1):it => {
     set text(fill: blue)
-    set block(above: 1.0em)
+    set block(above: 1.0em, below: 0.7em)
     it
   }
   show heading.where(level: 2): it => {
