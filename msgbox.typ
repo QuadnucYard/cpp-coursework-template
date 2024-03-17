@@ -56,10 +56,12 @@
   cnt.step()
   block(width: 100%, fill: maroon.lighten(80%), inset: 8pt, radius: (top: 4pt), {
     strong([Case #cnt.display()])
+    h(1em)
     first
   })
   block(width: 100%, fill: olive.lighten(80%), inset: 8pt, radius: (bottom: 4pt), above: 0pt, {
     strong([Analysis #cnt.display()])
+    h(1em)
     second
   })
 }

@@ -4,7 +4,7 @@
 #let indent = h(2em)
 
 #let fake_par = {
-  v(-0.5em)
+  v(-1em)
   box()
 }
 
@@ -54,7 +54,7 @@
 
   body
 
-  place(bottom + right, text(size: 8pt, "Powered by Typst.", fill: gray))
+  place(bottom + right, text(size: 8pt, "Proudly powered by Typst 11.0", fill: gray))
 }
 
 #let check-indent(doc, par-style) = {
@@ -73,39 +73,38 @@
 #let assignment-style(doc, par-style: make-style()) = {
   set enum(numbering: "1.a)")
 
-  show heading.where(level: 1):it => {
-    set text(fill: blue)
-    set block(above: 1.0em, below: 0.7em)
-    it
-  }
-  show heading.where(level: 2): it => {
-    set text(size: 13pt, fill: orange)
-    set block(above: 0.9em)
-    it
-  }
+  show heading.where(level: 1): set text(fill: blue)
+  show heading.where(level: 1): set block(above: 1.0em, below: 1.0em)
+
+  show heading.where(level: 2): set text(size: 13pt, fill: orange)
+  show heading.where(level: 2): set block(above: 1.0em, below: 1.0em)
+
+  show heading.where(level: 3): set block(above: 1.0em, below: 1.0em)
 
   check-indent(doc, par-style)
 }
 
 #let solution-style(doc, par-style: make-style()) = {
-  let h1-box(body) = {
-    block(width: 100%, fill: blue.lighten(90%), stroke: (left: 3pt + blue.lighten(30%)), inset: 4pt, outset: 4pt, radius: (left: 4pt), below: 12pt, body)
-  }
+  let h1-box = block.with(width: 100%, fill: blue.lighten(90%), stroke: (left: 3pt + blue.lighten(30%)), inset: 4pt, outset: 4pt, radius: (left: 4pt), below: 12pt)
 
   let h2-box(inset: 6pt, outset: 10pt, bar-space: 2pt, bar-width: 3pt, body) = {
     let ist = if type(inset) == dictionary { inset.top } else { inset }
     let isb = if type(inset) == dictionary { inset.bottom } else { inset }
     let isl = if type(inset) == dictionary { inset.left } else { inset }
     let isr = if type(inset) == dictionary { inset.right } else { inset }
-    style(styles => {
-      let size = measure(body, styles)
+    context {
+      let size = measure(body)
       block(above: 8pt, below: 8pt)[
-        #stack(dir: ltr, spacing: bar-space, polygon(fill: eastern.lighten(80%), (-2pt, 0pt), (-2pt, size.height + 2 * inset), (size.width + 2 * inset + 10pt, size.height + 2 * inset), (size.width + 2 * inset, 0pt)), polygon(fill: eastern.lighten(60%), (-10pt, 0pt), (0pt, size.height + 2 * inset), (0pt + bar-width, size.height + 2 * inset), (-10pt + bar-width, 0pt)))
+        #stack(
+          dir: ltr,
+          spacing: bar-space,
+          polygon(fill: eastern.lighten(80%), (-2pt, 0pt), (-2pt, size.height + 2 * inset), (size.width + 2 * inset + 10pt, size.height + 2 * inset), (size.width + 2 * inset, 0pt)),
+          polygon(fill: eastern.lighten(60%), (-10pt, 0pt), (0pt, size.height + 2 * inset), (0pt + bar-width, size.height + 2 * inset), (-10pt + bar-width, 0pt)),
+        )
         #place(left + top, dy: inset, dx: inset, body)
       ]
-    })
+    }
   }
-
   show heading.where(level: 1): it => {
     set text(fill: blue, font: fonts.strong)
     h1-box(it.body)
