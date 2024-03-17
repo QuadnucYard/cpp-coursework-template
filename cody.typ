@@ -53,7 +53,7 @@
 /// - region (string none): The prefix of start and end.
 /// - lang (string): The language to use.
 /// -> content
-#let codeblock(text, start: none, end: none, count: none, region: none, lang: "cpp") = {
+#let cody(text, start: none, end: none, count: none, region: none, lang: "cpp") = {
   let a = text.split("\n")
   if region != none and lang == "cpp" {
     start = "#pragma region " + region
