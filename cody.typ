@@ -1,8 +1,6 @@
 // cody.typ
-#import "@preview/codelst:2.0.0": sourcecode, codelst
+#import "@preview/codelst:2.0.1": sourcecode, codelst
 #import "font.typ": fonts
-
-// codelst can be safely upgraded to 2.0.0, but it will cause slow preview
 
 #let codify-state = state("codify-lang", none)
 
