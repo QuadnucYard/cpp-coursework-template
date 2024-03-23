@@ -73,13 +73,17 @@
 #let assignment-style(doc, par-style: make-style()) = {
   set enum(numbering: "1.a)")
 
-  show heading.where(level: 1): set text(fill: blue)
+  show heading.where(level: 1): set text(size: 14pt, fill: blue)
   show heading.where(level: 1): set block(above: 1.0em, below: 1.0em)
 
-  show heading.where(level: 2): set text(size: 13pt, fill: orange)
+  show heading.where(level: 2): set text(size: 13pt, fill: orange.darken(10%))
   show heading.where(level: 2): set block(above: 1.0em, below: 1.0em)
 
+  show heading.where(level: 3): set text(size: 12pt, fill: eastern.darken(10%))
   show heading.where(level: 3): set block(above: 1.0em, below: 1.0em)
+
+  show heading.where(level: 4): set text(fill: olive.darken(10%))
+  show heading.where(level: 4): set block(above: 1.0em, below: 1.0em)
 
   check-indent(doc, par-style)
 }
