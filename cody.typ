@@ -20,7 +20,11 @@
     }
   }
   show raw.where(block: false): it => {
-    box(inset: (left: 0.2em, right: 0.2em), box(radius: 2pt, fill: rgb(50%, 50%, 50%, 10%), outset: 0.2em, it))
+    if it.has("lang") and it.lang != none {
+      box(inset: (left: 0.2em, right: 0.2em), box(radius: 2pt, fill: rgb(50%, 50%, 50%, 10%), outset: 0.2em, it))
+    } else {
+      it
+    }
   }
 
   doc
@@ -51,8 +55,8 @@
 /// - region (string none): The prefix of start and end.
 /// - lang (string): The language to use.
 /// -> content
-#let cody(text, start: none, end: none, count: none, region: none, lang: "cpp") = {
-  let a = text.split("\n")
+#let cody(txt, start: none, end: none, count: none, region: none, lang: "cpp", font-size: auto) = {
+  let a = txt.split("\n")
   if region != none and lang == "cpp" {
     start = "#pragma region " + region
     end = "#pragma endregion " + region
@@ -77,8 +81,14 @@
   if count != none {
     a = a.slice(0, count)
   }
-  text = a.join("\n")
-  raw(text, block: true, lang: lang)
+  txt = a.join("\n")
+  if font-size == auto {
+    raw(txt, block: true, lang: lang)
+  } else {
+    show raw.line: set text(size: font-size)
+    raw(txt, block: true, lang: lang)
+  }
+
   /* sourcecode(
     raw(text, block: true, lang: lang),
     numbers-start: if start != none { start } else { 1 }
