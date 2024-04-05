@@ -10,7 +10,7 @@
 /// #example(``` problematic.ensure-raw(`114514`, block: true)```)
 ///
 /// - body (string, raw): Some text
-/// - block (boolean): Whether to force `block = true`.  
+/// - block (boolean): Whether to force `block = true`.
 /// -> content
 #let ensure-raw(body, block: true) = {
   if type(body) == str {
@@ -150,3 +150,12 @@
 ///
 /// -> content
 #let choice-placer = "______"
+
+#let tag(body, fill: auto) = {
+  set text(size: 0.8em, fill.darken(40%))
+  box(inset: (left: 3pt, right: 3pt), box(radius: 4pt, outset: 3pt, fill: fill.lighten(75%), body))
+}
+
+#let tag-opt = tag(fill: fuchsia)[*选做*]
+#let tag-prog = tag(fill: lime)[*编程*]
+#let tag-ans = tag(fill: orange)[*简答*]
