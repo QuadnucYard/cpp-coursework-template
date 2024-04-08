@@ -1,6 +1,8 @@
 // problematic
 #import "font.typ": fonts
 
+#import "@preview/treet:0.1.0": *
+
 /// Make the body raw.
 ///
 /// *Examples:*
@@ -159,3 +161,13 @@
 #let tag-opt = tag(fill: fuchsia)[*选做*]
 #let tag-prog = tag(fill: lime)[*编程*]
 #let tag-ans = tag(fill: orange)[*简答*]
+
+#let submission-list(body, root: none) = {
+  set text(font: fonts.mono, size: 0.8em)
+  block(inset: (left: 2em, right: 1em), outset: 4pt, radius: 4pt, fill: yellow.lighten(90%), {
+    if root != none {
+      [#root \ ]
+    }
+    tree-list(body)
+  })
+}

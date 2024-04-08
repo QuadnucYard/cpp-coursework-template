@@ -3,10 +3,14 @@
 
 #let indent = h(2em)
 
+#let unindent = h(-2em)
+
 #let fake_par = {
   v(-1em)
   box()
 }
+
+#let indent-state = state("indent", false)
 
 #let make-style(
   leading: 0.8em,
@@ -60,6 +64,7 @@
 #let check-indent(doc, par-style) = {
   set par(..par-style)
   if par-style.at("first-line-indent", default: 0pt) > 0pt {
+    indent-state.update(true)
     show heading: it => {
       it
       fake_par
